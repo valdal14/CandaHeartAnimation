@@ -1,7 +1,7 @@
 import SwiftUI
 
 @available(iOS 13.0, *)
-struct CandaHeartAnimation: View {
+public struct CandaHeartAnimation: View {
 	
 	// MARK: - Properties
 	@ObservedObject var vm: CandaHeartViewModel
@@ -9,7 +9,7 @@ struct CandaHeartAnimation: View {
 	@State private var hearts: [Heart] = []
 	
 	// MARK: - View
-	var body: some View {
+	public var body: some View {
 		VStack {
 			ZStack {
 				ForEach(hearts) { heart in
@@ -63,17 +63,17 @@ struct CandaHeartAnimation: View {
 }
 
 // MARK: - Type
-class Heart: Identifiable {
-	let id = UUID()
-	var x: CGFloat = 0
-	var y: CGFloat = 0
-	var opacity: Double = 0
+public class Heart: Identifiable {
+	public let id = UUID()
+	public var x: CGFloat = 0
+	public var y: CGFloat = 0
+	public var opacity: Double = 0
 }
 
 // MARK: Preview
-struct CandaHeartAnimation_Previews: PreviewProvider {
+public struct CandaHeartAnimation_Previews: PreviewProvider {
 	@available(iOS 13.0.0, *)
-	static var previews: some View {
+	public static var previews: some View {
 		CandaHeartAnimation(vm: .init(heartButtonSize: 30,
 							  heartAnimationDuration: 0.8,
 							  numberOfHeartToAnimate: 4))
