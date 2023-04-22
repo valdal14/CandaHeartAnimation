@@ -5,8 +5,12 @@ public struct CandaHeartAnimation: View {
 	
 	// MARK: - Properties
 	@ObservedObject var vm: CandaHeartViewModel
-	
 	@State private var hearts: [Heart] = []
+	
+	// MARK: - Init
+	public init(vm: CandaHeartViewModel) {
+		self.vm = vm
+	}
 	
 	// MARK: - View
 	public var body: some View {
