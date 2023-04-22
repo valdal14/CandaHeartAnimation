@@ -6,7 +6,6 @@ public struct CandaHeartAnimation: View {
 	// MARK: - Properties
 	@ObservedObject var vm: CandaHeartViewModel
 	@State private var hearts: [Heart] = []
-	@State private var changeAnimatedHeartStyle: HeartState = .stroke
 	
 	// MARK: - Init
 	public init(vm: CandaHeartViewModel) {
@@ -38,11 +37,7 @@ public struct CandaHeartAnimation: View {
 				
 				Button(action: {
 					if vm.heartState == .stroke {
-						for _ in 0..<vm.numberOfHeartToAnimate {
-							let newHeart = Heart()
-							newHeart.opacity = 0
-							hearts.append(newHeart)
-						}
+						generateHearts()
 					}
 					// Add haptic feedback
 					let generator = UIImpactFeedbackGenerator(style: .medium)
@@ -54,11 +49,7 @@ public struct CandaHeartAnimation: View {
 						withAnimation {
 							hearts = []
 						}
-						for _ in 0..<vm.numberOfHeartToAnimate {
-							let newHeart = Heart()
-							newHeart.opacity = 0
-							hearts.append(newHeart)
-						}
+						generateHearts()
 					}
 					
 				}) {
@@ -70,11 +61,16 @@ public struct CandaHeartAnimation: View {
 		}
 		.onAppear {
 			// populate the hearts
-			for _ in 0..<vm.numberOfHeartToAnimate {
-				let newHeart = Heart()
-				newHeart.opacity = 0
-				hearts.append(newHeart)
-			}
+			generateHearts()
+		}
+	}
+	
+	//MARK: - Helper function
+	func generateHearts() {
+		for _ in 0..<vm.numberOfHeartToAnimate {
+			let newHeart = Heart()
+			newHeart.opacity = 0
+			hearts.append(newHeart)
 		}
 	}
 }
