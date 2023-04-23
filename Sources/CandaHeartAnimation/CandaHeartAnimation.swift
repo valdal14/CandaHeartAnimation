@@ -6,12 +6,12 @@ public struct CandaHeartAnimation: View {
 	// MARK: - Properties
 	@ObservedObject var vm: CandaHeartViewModel
 	@State private var hearts: [Heart] = []
-	let onClick: () -> Void
+	private let onTap: () -> Void
 	
 	// MARK: - Init
-	public init(vm: CandaHeartViewModel, onClick: @escaping () -> Void) {
+	public init(vm: CandaHeartViewModel, onTap: @escaping () -> Void) {
 		self.vm = vm
-		self.onClick = onClick
+		self.onTap = onTap
 	}
 	
 	// MARK: - View
@@ -46,50 +46,38 @@ public struct CandaHeartAnimation: View {
 							.font(.system(size: vm.heartButtonSize))
 							.foregroundColor(vm.heartColor.colorValue)
 					}
-					.onTapGesture {
-						generateHearts()
+//					.onTapGesture {
 //						if vm.heartState == .stroke {
-//							generateHearts()
+//							vm.generateHearts()
 //						}
-						// Add haptic feedback
-						let generator = UIImpactFeedbackGenerator(style: .medium)
-						generator.prepare()
-						generator.impactOccurred()
-						
-						// remove hearts to completed the animation
-						DispatchQueue.main.asyncAfter(deadline: .now() + vm.heartAnimationDuration + 0.1) {
-							withAnimation {
-								hearts = []
-							}
-							generateHearts()
-						}
-					}
+//						// Add haptic feedback
+//						let generator = UIImpactFeedbackGenerator(style: .medium)
+//						generator.prepare()
+//						generator.impactOccurred()
+//						
+//						// remove hearts to completed the animation
+//						DispatchQueue.main.asyncAfter(deadline: .now() + vm.heartAnimationDuration + 0.1) {
+//							withAnimation {
+//								hearts = []
+//							}
+//							vm.generateHearts()
+//						}
+//					}
 				}
 			}
 		}
 		.onAppear {
 			// populate the hearts
-			generateHearts()
+			vm.generateHearts()
 		}
 	}
 
 	
 	//MARK: - Helper function
-	func generateHearts() {
-		for _ in 0..<vm.numberOfHeartToAnimate {
-			let newHeart = Heart()
-			newHeart.opacity = 0
-			hearts.append(newHeart)
-		}
+	private func onClick() {
+		// executes client request
+		onTap()
 	}
-}
-
-// MARK: - Type
-public class Heart: Identifiable {
-	public let id = UUID()
-	public var x: CGFloat = 0
-	public var y: CGFloat = 0
-	public var opacity: Double = 0
 }
 
 // MARK: Preview
@@ -98,6 +86,6 @@ public struct CandaHeartAnimation_Previews: PreviewProvider {
 	public static var previews: some View {
 		CandaHeartAnimation(vm: .init(heartButtonSize: 25,
 									  heartAnimationDuration: 0.8,
-									  numberOfHeartToAnimate: 4), onClick: { })
+									  numberOfHeartToAnimate: 4), onTap: { })
 	}
 }

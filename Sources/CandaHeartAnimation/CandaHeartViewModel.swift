@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+// MARK: - Types
+public class Heart: Identifiable {
+	public let id = UUID()
+	public var x: CGFloat = 0
+	public var y: CGFloat = 0
+	public var opacity: Double = 0
+}
+
 public enum HeartState: String {
 	case stroke = "heart"
 	case fill = "heart.fill"
@@ -54,6 +62,9 @@ public final class CandaHeartViewModel: ObservableObject {
 	// MARK: - Published properties
 	public var heartState: HeartState = .stroke
 	
+	// MARK: - Published properties
+	@Published private(set) var hearts: [Heart] = []
+	
 	
 	// MARK: Init
 	public init(heartButtonSize: CGFloat, heartAnimationDuration: Double, numberOfHeartToAnimate: Int, heartColor: HeartColor = .black(.black)) {
@@ -63,6 +74,14 @@ public final class CandaHeartViewModel: ObservableObject {
 	}
 	
 	// MARK: - Helpers
+	public func generateHearts() {
+		for _ in 0..<numberOfHeartToAnimate {
+			let newHeart = Heart()
+			newHeart.opacity = 0
+			hearts.append(newHeart)
+		}
+	}
+	
 	public func addToWishlist(completionHandler: @escaping () async throws -> Bool) async throws -> HeartState {
 		let result = try await completionHandler()
 		try await changeInternalState(from: result)
