@@ -69,12 +69,10 @@ public struct CandaHeartAnimation: View {
 		await onTap()
 		
 		// Handling the animation completion
-		DispatchQueue.main.async {
-			withAnimation {
-				vm.hearts = []
-			}
-			vm.generateHearts()
+		withAnimation {
+			vm.hearts = []
 		}
+		vm.generateHearts()
 	}
 }
 
