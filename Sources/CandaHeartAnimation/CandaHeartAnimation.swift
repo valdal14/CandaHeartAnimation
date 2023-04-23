@@ -5,7 +5,6 @@ public struct CandaHeartAnimation: View {
 	
 	// MARK: - Properties
 	@ObservedObject var vm: CandaHeartViewModel
-	@State private var hearts: [Heart] = []
 	private let onTap: () -> Void
 	
 	// MARK: - Init
@@ -18,7 +17,7 @@ public struct CandaHeartAnimation: View {
 	public var body: some View {
 		VStack {
 			ZStack {
-				ForEach(hearts) { heart in
+				ForEach(vm.hearts) { heart in
 					Image(systemName: "heart.fill")
 						.font(.system(size: vm.heartButtonSize))
 						.foregroundColor(vm.heartColor.colorValue)
