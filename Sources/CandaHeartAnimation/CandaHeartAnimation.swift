@@ -29,7 +29,7 @@ public struct CandaHeartAnimation: View {
 						.onAppear {
 							withAnimation {
 								heart.x = CGFloat.random(in: -20...20)
-								heart.y = CGFloat.random(in: -100 ... -50)
+								heart.y = CGFloat.random(in: -150 ... -100)
 								heart.opacity = 1
 							}
 						}
@@ -89,6 +89,6 @@ public struct CandaHeartAnimation_Previews: PreviewProvider {
 	public static var previews: some View {
 		CandaHeartAnimation(vm: .init(heartButtonSize: 30,
 									  heartAnimationDuration: 0.8,
-									  numberOfHeartToAnimate: 3))
+									  numberOfHeartToAnimate: 4))
 	}
 }
