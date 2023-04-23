@@ -47,9 +47,10 @@ public struct CandaHeartAnimation: View {
 							.foregroundColor(vm.heartColor.colorValue)
 					}
 					.onTapGesture {
-						if vm.heartState == .stroke {
-							generateHearts()
-						}
+						generateHearts()
+//						if vm.heartState == .stroke {
+//							generateHearts()
+//						}
 						// Add haptic feedback
 						let generator = UIImpactFeedbackGenerator(style: .medium)
 						generator.prepare()
