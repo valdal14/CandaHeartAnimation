@@ -27,7 +27,9 @@ struct ContentView: View {
                                               heartAnimationDuration: 0.8,
                                               numberOfHeartToAnimate: 4)
     var body: some View {
-        CandaHeartAnimation(vm: heartViewModel)
+        CandaHeartAnimation(vm: heartViewModel) { 
+			// Your action here
+		}
     }
 }
 ```

@@ -63,28 +63,6 @@ public struct CandaHeartAnimation: View {
 							generateHearts()
 						}
 					}
-//					Button(action: {
-//						if vm.heartState == .stroke {
-//							generateHearts()
-//						}
-//						// Add haptic feedback
-//						let generator = UIImpactFeedbackGenerator(style: .medium)
-//						generator.prepare()
-//						generator.impactOccurred()
-//
-//						// remove hearts to completed the animation
-//						DispatchQueue.main.asyncAfter(deadline: .now() + vm.heartAnimationDuration + 0.1) {
-//							withAnimation {
-//								hearts = []
-//							}
-//							generateHearts()
-//						}
-//
-//					}) {
-//						Image(systemName: vm.heartState.rawValue)
-//							.font(.system(size: vm.heartButtonSize))
-//							.foregroundColor(vm.heartColor.colorValue)
-//					}
 				}
 			}
 		}
