@@ -17,7 +17,6 @@ You can integrate `CandaHeartAnimation` into your Xcode project by using the Swi
 Once you have installed CandaHeartAnimation, you can use the `CandaHeartAnimation` view in your SwiftUI code.
 
 ```swift
-import SwiftUI
 import CandaHeartAnimation
 
 struct ContentView: View {
@@ -33,7 +32,7 @@ struct ContentView: View {
 			CandaHeartAnimation(vm: vm) {
 				Task {
 					do {
-						let heartState = try await vm.addToWishlist {
+						_ = try await vm.addToWishlist {
 							// simulate a network request
 							return true
 						}
@@ -44,12 +43,8 @@ struct ContentView: View {
 							if vm.heartState == .fill {
 								vm.generateHearts()
 							}
-							// Add optional haptic feedback
-							let generator = UIImpactFeedbackGenerator(style: .medium)
-							generator.prepare()
-							generator.impactOccurred()
 							/**
-							 Animation completion handled inside the client using the
+							 Animation completion handle inside the client using the
 							 DispatchQueue.main.asyncAfter and by removing the hearts
 							 */
 							DispatchQueue.main.asyncAfter(deadline: .now() + vm.heartAnimationDuration + 0.1) {
