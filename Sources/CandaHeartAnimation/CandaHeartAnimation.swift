@@ -19,7 +19,7 @@ public struct CandaHeartAnimation: View {
 				ForEach(hearts) { heart in
 					Image(systemName: "heart.fill")
 						.font(.system(size: vm.heartButtonSize))
-						.foregroundColor(.red)
+						.foregroundColor(vm.heartColor.colorValue)
 						.opacity(heart.opacity)
 						.offset(x: heart.x, y: heart.y)
 						.animation(
@@ -59,7 +59,7 @@ public struct CandaHeartAnimation: View {
 					}) {
 						Image(systemName: vm.heartState.rawValue)
 							.font(.system(size: vm.heartButtonSize))
-							.foregroundColor(.red)
+							.foregroundColor(vm.heartColor.colorValue)
 					}
 				}
 			}
