@@ -82,6 +82,9 @@ In this example, `CandaHeartAnimation` is wrapped inside a closure and a `Task` 
 - `numberOfHeartToAnimate`: the number of hearts that will be animated in the view
 - `Heart`: a class that defines the properties of each heart that is animated. You can modify this class to change the appearance and behavior of the hearts.
 
+# Video Example
+[![Watch the video](https://raw.githubusercontent.com/valdal14/Memorize/main/CandaAnimation.png)](https://youtu.be/DBBa_Bnsa4U)
+
 # Contribution
 
 Contributions to `CandaHeartAnimation` are always welcome! If you find a bug or have a feature request, please open an issue on the [GitHub repository](https://github.com/valdal14/CandaHeartAnimation/issues).
