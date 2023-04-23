@@ -5,10 +5,10 @@ public struct CandaHeartAnimation: View {
 	
 	// MARK: - Properties
 	@ObservedObject var vm: CandaHeartViewModel
-	private let onTap: () -> Void
+	private let onTap: () async -> Void
 	
 	// MARK: - Init
-	public init(vm: CandaHeartViewModel, onTap: @escaping () -> Void) {
+	public init(vm: CandaHeartViewModel, onTap: @escaping () async -> Void) {
 		self.vm = vm
 		self.onTap = onTap
 	}
@@ -40,7 +40,11 @@ public struct CandaHeartAnimation: View {
 					Circle()
 						.fill(Color.white.opacity(0.4))
 						.frame(width: vm.heartButtonSize + 15, height: vm.heartButtonSize + 15)
-					Button(action: onClick) {
+					Button {
+						Task {
+							await onClick()
+						}
+					} label: {
 						Image(systemName: vm.heartState.rawValue)
 							.font(.system(size: vm.heartButtonSize))
 							.foregroundColor(vm.heartColor.colorValue)
@@ -56,13 +60,13 @@ public struct CandaHeartAnimation: View {
 
 	
 	//MARK: - Helper function
-	private func onClick() {
+	private func onClick() async {
 		// Add optional haptic feedback
 		let generator = UIImpactFeedbackGenerator(style: .medium)
 		generator.prepare()
 		generator.impactOccurred()
 		
-		onTap()
+		await onTap()
 	}
 }
 
