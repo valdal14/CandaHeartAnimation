@@ -57,6 +57,11 @@ public struct CandaHeartAnimation: View {
 	
 	//MARK: - Helper function
 	private func onClick() {
+		// Add optional haptic feedback
+		let generator = UIImpactFeedbackGenerator(style: .medium)
+		generator.prepare()
+		generator.impactOccurred()
+		
 		onTap()
 	}
 }
