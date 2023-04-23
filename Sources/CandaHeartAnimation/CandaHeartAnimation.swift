@@ -67,6 +67,14 @@ public struct CandaHeartAnimation: View {
 		generator.impactOccurred()
 		
 		await onTap()
+		
+		// Handling the animation completion
+		DispatchQueue.main.asyncAfter(deadline: .now() + vm.heartAnimationDuration + 0.1) {
+			withAnimation {
+				vm.hearts = []
+			}
+			vm.generateHearts()
+		}
 	}
 }
 
