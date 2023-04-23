@@ -49,7 +49,7 @@ struct ContentView: View {
 							generator.prepare()
 							generator.impactOccurred()
 							/**
-							 Animation completion handle inside the client using the
+							 Animation completion handled inside the client using the
 							 DispatchQueue.main.asyncAfter and by removing the hearts
 							 */
 							DispatchQueue.main.asyncAfter(deadline: .now() + vm.heartAnimationDuration + 0.1) {
