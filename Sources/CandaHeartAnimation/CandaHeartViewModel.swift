@@ -63,7 +63,7 @@ public final class CandaHeartViewModel: ObservableObject {
 	public var heartState: HeartState = .stroke
 	
 	// MARK: - Published properties
-	@Published private(set) var hearts: [Heart] = []
+	@Published var hearts: [Heart] = []
 	
 	
 	// MARK: Init
