@@ -93,8 +93,9 @@ public class Heart: Identifiable {
 public struct CandaHeartAnimation_Previews: PreviewProvider {
 	@available(iOS 13.0.0, *)
 	public static var previews: some View {
-		CandaHeartAnimation(vm: .init(heartButtonSize: 30,
+		CandaHeartAnimation(vm: .init(heartButtonSize: 25,
 									  heartAnimationDuration: 0.8,
 									  numberOfHeartToAnimate: 4))
+		.preferredColorScheme(.dark)
 	}
 }
