@@ -35,27 +35,32 @@ public struct CandaHeartAnimation: View {
 						}
 				}
 				
-				Button(action: {
-					if vm.heartState == .stroke {
-						generateHearts()
-					}
-					// Add haptic feedback
-					let generator = UIImpactFeedbackGenerator(style: .medium)
-					generator.prepare()
-					generator.impactOccurred()
-					
-					// remove hearts to completed the animation
-					DispatchQueue.main.asyncAfter(deadline: .now() + vm.heartAnimationDuration + 0.1) {
-						withAnimation {
-							hearts = []
+				ZStack {
+					Circle()
+						.fill(Color.white.opacity(0.4))
+						.frame(width: vm.heartButtonSize + 15, height: vm.heartButtonSize + 15)
+					Button(action: {
+						if vm.heartState == .stroke {
+							generateHearts()
 						}
-						generateHearts()
+						// Add haptic feedback
+						let generator = UIImpactFeedbackGenerator(style: .medium)
+						generator.prepare()
+						generator.impactOccurred()
+						
+						// remove hearts to completed the animation
+						DispatchQueue.main.asyncAfter(deadline: .now() + vm.heartAnimationDuration + 0.1) {
+							withAnimation {
+								hearts = []
+							}
+							generateHearts()
+						}
+						
+					}) {
+						Image(systemName: vm.heartState.rawValue)
+							.font(.system(size: vm.heartButtonSize))
+							.foregroundColor(.red)
 					}
-					
-				}) {
-					Image(systemName: vm.heartState.rawValue)
-						.font(.system(size: vm.heartButtonSize))
-						.foregroundColor(.red)
 				}
 			}
 		}
@@ -64,6 +69,7 @@ public struct CandaHeartAnimation: View {
 			generateHearts()
 		}
 	}
+
 	
 	//MARK: - Helper function
 	func generateHearts() {
