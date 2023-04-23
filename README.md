@@ -14,27 +14,64 @@ You can integrate `CandaHeartAnimation` into your Xcode project by using the Swi
 
 ## Usage
 
-To use `CandaHeartAnimation`, create an instance of the `CandaHeartViewModel` class with your desired animation parameters, and pass it to an instance of the `CandaHeartAnimation` view.
-
-Here's an example:
+Once you have installed CandaHeartAnimation, you can use the `CandaHeartAnimation` view in your SwiftUI code.
 
 ```swift
 import SwiftUI
 import CandaHeartAnimation
 
 struct ContentView: View {
-    let heartViewModel = CandaHeartViewModel(heartButtonSize: 25,
-                                              heartAnimationDuration: 0.8,
-                                              numberOfHeartToAnimate: 4)
-    var body: some View {
-        CandaHeartAnimation(vm: heartViewModel) { 
-			// Your action here
+	
+	@ObservedObject private var vm: CandaHeartViewModel
+	
+	init(vm: CandaHeartViewModel) {
+		self.vm = vm
+	}
+	
+	var body: some View {
+		VStack {
+			CandaHeartAnimation(vm: vm) {
+				Task {
+					do {
+						let heartState = try await vm.addToWishlist {
+							// simulate a network request
+							return true
+						}
+						
+						// simulate a delay
+						DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+							// show animation only if the heart was stroke
+							if vm.heartState == .fill {
+								vm.generateHearts()
+							}
+							// Add optional haptic feedback
+							let generator = UIImpactFeedbackGenerator(style: .medium)
+							generator.prepare()
+							generator.impactOccurred()
+							/**
+							 Animation completion handle inside the client using the
+							 DispatchQueue.main.asyncAfter and by removing the hearts
+							 */
+							DispatchQueue.main.asyncAfter(deadline: .now() + vm.heartAnimationDuration + 0.1) {
+								withAnimation {
+									vm.hearts = []
+								}
+								// generate new hearts to repopulate the array
+								vm.generateHearts()
+							}
+						}
+					} catch {
+						print("Error: \(error)")
+					}
+				}
+			}
 		}
-    }
+		.padding()
+	}
 }
 ```
 
-In this example, we've created an instance of `CandaHeartViewModel` with a heart button size of 25, an animation duration of 0.8 seconds, and a number of hearts to animate of 4. We then pass this instance to an instance of `CandaHeartAnimation` in the view body.
+In this example, `CandaHeartAnimation` is wrapped inside a closure and a `Task` to handle adding to the wishlist. The `CandaHeartViewModel` is initialized and passed as a parameter to the `CandaHeartAnimation` view. The `CandaHeartAnimation` view is then displayed inside a `VStack` container. 
 
 ## Customization
 
