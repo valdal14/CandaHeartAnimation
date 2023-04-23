@@ -45,19 +45,19 @@ In this example, we've created an instance of `CandaHeartViewModel` with a heart
 
 # Contribution
 
-Contributions to `CandaHeartAnimation` are always welcome! If you find a bug or have a feature request, please open an issue on the [GitHub repository](https://github.com/candostdagdev/canda-heart-animation/issues).
+Contributions to `CandaHeartAnimation` are always welcome! If you find a bug or have a feature request, please open an issue on the [GitHub repository](https://github.com/valdal14/CandaHeartAnimation/issues).
 
 If you'd like to contribute code to `CandaHeartAnimation`, please follow these steps:
 
-1. Fork the [GitHub repository](https://github.com/candostdagdev/canda-heart-animation)
+1. Fork the [GitHub repository](https://github.com/valdal14/CandaHeartAnimation)
 2. Clone your fork to your local machine
 3. Create a new branch for your changes
 4. Make your changes and commit them with clear commit messages
 5. Push your changes to your fork
-6. Open a pull request on the [GitHub repository](https://github.com/candostdagdev/canda-heart-animation)
+6. Open a pull request on the [GitHub repository](https://github.com/valdal14/CandaHeartAnimation)
 
 Please ensure that your code adheres to the existing style and conventions used in `CandaHeartAnimation`, and that it includes appropriate tests.
 
 ## License
 
-`CandaHeartAnimation` is released under the MIT license. See [LICENSE](https://github.com/candostdagdev/canda-heart-animation/blob/main/LICENSE) for details.
+`CandaHeartAnimation` is released under the MIT license. See [LICENSE](https://github.com/valdal14/CandaHeartAnimation/blob/main/LICENSE) for details.
