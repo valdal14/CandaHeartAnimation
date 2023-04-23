@@ -6,10 +6,12 @@ public struct CandaHeartAnimation: View {
 	// MARK: - Properties
 	@ObservedObject var vm: CandaHeartViewModel
 	@State private var hearts: [Heart] = []
+	let onClick: () -> Void
 	
 	// MARK: - Init
-	public init(vm: CandaHeartViewModel) {
+	public init(vm: CandaHeartViewModel, onClick: @escaping () -> Void) {
 		self.vm = vm
+		self.onClick = onClick
 	}
 	
 	// MARK: - View
@@ -39,7 +41,12 @@ public struct CandaHeartAnimation: View {
 					Circle()
 						.fill(Color.white.opacity(0.4))
 						.frame(width: vm.heartButtonSize + 15, height: vm.heartButtonSize + 15)
-					Button(action: {
+					Button(action: onClick) {
+						Image(systemName: vm.heartState.rawValue)
+							.font(.system(size: vm.heartButtonSize))
+							.foregroundColor(vm.heartColor.colorValue)
+					}
+					.onTapGesture {
 						if vm.heartState == .stroke {
 							generateHearts()
 						}
@@ -55,12 +62,29 @@ public struct CandaHeartAnimation: View {
 							}
 							generateHearts()
 						}
-						
-					}) {
-						Image(systemName: vm.heartState.rawValue)
-							.font(.system(size: vm.heartButtonSize))
-							.foregroundColor(vm.heartColor.colorValue)
 					}
+//					Button(action: {
+//						if vm.heartState == .stroke {
+//							generateHearts()
+//						}
+//						// Add haptic feedback
+//						let generator = UIImpactFeedbackGenerator(style: .medium)
+//						generator.prepare()
+//						generator.impactOccurred()
+//
+//						// remove hearts to completed the animation
+//						DispatchQueue.main.asyncAfter(deadline: .now() + vm.heartAnimationDuration + 0.1) {
+//							withAnimation {
+//								hearts = []
+//							}
+//							generateHearts()
+//						}
+//
+//					}) {
+//						Image(systemName: vm.heartState.rawValue)
+//							.font(.system(size: vm.heartButtonSize))
+//							.foregroundColor(vm.heartColor.colorValue)
+//					}
 				}
 			}
 		}
@@ -95,7 +119,6 @@ public struct CandaHeartAnimation_Previews: PreviewProvider {
 	public static var previews: some View {
 		CandaHeartAnimation(vm: .init(heartButtonSize: 25,
 									  heartAnimationDuration: 0.8,
-									  numberOfHeartToAnimate: 4))
-		.preferredColorScheme(.dark)
+									  numberOfHeartToAnimate: 4), onClick: { })
 	}
 }
