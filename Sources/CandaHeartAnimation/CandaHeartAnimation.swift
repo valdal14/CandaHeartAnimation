@@ -5,10 +5,10 @@ public struct CandaHeartAnimation: View {
 	
 	// MARK: - Properties
 	@ObservedObject var vm: CandaHeartViewModel
-	private let onTap: () async -> Void
+	private let onTap: (() -> Void) async -> Void
 	
 	// MARK: - Init
-	public init(vm: CandaHeartViewModel, onTap: @escaping () async -> Void) {
+	public init(vm: CandaHeartViewModel, onTap: @escaping (() -> Void) async -> Void) {
 		self.vm = vm
 		self.onTap = onTap
 	}
@@ -66,13 +66,15 @@ public struct CandaHeartAnimation: View {
 		generator.prepare()
 		generator.impactOccurred()
 		
-		await onTap()
-		
-		// Handling the animation completion
-		withAnimation {
-			vm.hearts = []
+		await onTap {
+			DispatchQueue.main.async {
+				// Handling the animation completion
+				withAnimation {
+					vm.hearts = []
+				}
+				vm.generateHearts()
+			}
 		}
-		vm.generateHearts()
 	}
 }
 
@@ -82,6 +84,6 @@ public struct CandaHeartAnimation_Previews: PreviewProvider {
 	public static var previews: some View {
 		CandaHeartAnimation(vm: .init(heartButtonSize: 25,
 									  heartAnimationDuration: 0.8,
-									  numberOfHeartToAnimate: 4), onTap: { })
+									  numberOfHeartToAnimate: 4), onTap: { _ in })
 	}
 }
