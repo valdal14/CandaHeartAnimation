@@ -5,10 +5,10 @@ public struct CandaHeartAnimation: View {
 	
 	// MARK: - Properties
 	@ObservedObject var vm: CandaHeartViewModel
-	private let onTap: () async -> @MainActor (@MainActor ()-> Void) -> Void
+	private let onTap: () async -> (()-> Void) -> Void
 	
 	// MARK: - Init
-	public init(vm: CandaHeartViewModel, onTap: @escaping @MainActor () async -> (@MainActor ()-> Void) -> Void) {
+	public init(vm: CandaHeartViewModel, onTap: @escaping () async -> (()-> Void) -> Void) {
 		self.vm = vm
 		self.onTap = onTap
 	}
@@ -71,15 +71,13 @@ public struct CandaHeartAnimation: View {
 		
 	}
 	
-	private func completeAnimation() {
-		Task {
-			await MainActor.run {
-				withAnimation {
-					vm.hearts = []
-				}
-				// generate new hearts to repopulate the array
-				vm.generateHearts()
+	private nonisolated func completeAnimation() {
+		DispatchQueue.main.async {
+			withAnimation {
+				vm.hearts = []
 			}
+			// generate new hearts to repopulate the array
+			vm.generateHearts()
 		}
 	}
 }
