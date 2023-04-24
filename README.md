@@ -32,7 +32,7 @@ struct ContentView: View {
 			CandaHeartAnimation(vm: vm) {
 				Task {
 					do {
-						_ = try await vm.addToWishlist {
+						let heartState = try await vm.addToWishlist {
 							// simulate a network request
 							return true
 						}
@@ -40,7 +40,7 @@ struct ContentView: View {
 						// simulate a delay
 						DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
 							// show animation only if the heart was stroke
-							if vm.heartState == .fill {
+							if heartState == .fill {
 								vm.generateHearts()
 							}
 							/**
