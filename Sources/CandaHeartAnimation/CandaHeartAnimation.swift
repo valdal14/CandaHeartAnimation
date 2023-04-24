@@ -5,10 +5,10 @@ public struct CandaHeartAnimation: View {
 	
 	// MARK: - Properties
 	@ObservedObject var vm: CandaHeartViewModel
-	private let onTap: () async -> (@MainActor ()-> Void) -> Void
+	private let onTap: () async -> @MainActor (@MainActor ()-> Void) -> Void
 	
 	// MARK: - Init
-	public init(vm: CandaHeartViewModel, onTap: @escaping () async -> (@MainActor ()-> Void) -> Void) {
+	public init(vm: CandaHeartViewModel, onTap: @escaping @MainActor () async -> (@MainActor ()-> Void) -> Void) {
 		self.vm = vm
 		self.onTap = onTap
 	}
