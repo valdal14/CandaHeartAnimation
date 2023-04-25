@@ -8,7 +8,7 @@ You can integrate `CandaHeartAnimation` into your Xcode project by using the Swi
 
 1. Open your project in Xcode
 2. Select "File" > "Swift Packages" > "Add Package Dependency"
-3. Enter `https://github.com/candostdagdev/canda-heart-animation` as the package repository URL and click "Next"
+3. Enter `https://github.com/valdal14/CandaHeartAnimation.git` as the package repository URL and click "Next"
 4. Choose the version you want to install and click "Next"
 5. Select the target where you want to use the package and click "Finish"
 
